@@ -1,0 +1,4 @@
+Nama: Bunga Rhiza Sitorus
+Username Dicoding: bungaarhizaa
+APP_URL=https://mariosijabat.github.io/berbagi-cerita/
+MAP_SERVICE_API_KEY=Tidak diperlukan (Menggunakan OpenStreetMap dan CartoDB Positron tile layer gratis)
