@@ -1,4 +1,4 @@
 Nama: Bunga Rhiza Sitorus
 Username Dicoding: bungaarhizaa
-APP_URL=https://mariosijabat.github.io/berbagi-cerita/
+APP_URL=https://story-app-git-main-bungas-projects-8f35e663.vercel.app/
 MAP_SERVICE_API_KEY=Tidak diperlukan (Menggunakan OpenStreetMap dan CartoDB Positron tile layer gratis)

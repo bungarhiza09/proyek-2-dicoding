@@ -105,6 +105,12 @@ export default class StoriesPage {
     // Import Leaflet
     const L = await import('leaflet');
 
+    // Ensure map container has explicit size
+    if (mapEl) {
+      mapEl.style.height = '500px';
+      mapEl.style.width = '100%';
+    }
+
     // Init Leaflet Map
     const defaultCenter = [-2.548926, 118.0148634];
     this.#map = L.map(mapEl, {
@@ -113,12 +119,30 @@ export default class StoriesPage {
       zoomControl: true,
     });
 
-    const baseTileUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
-    const baseTile = L.tileLayer(baseTileUrl, {
+    // Multiple Tile Layer Control (Kriteria 2 Advance)
+    const osmTile = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     });
-    baseTile.addTo(this.#map);
+
+    const cartoTile = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+    });
+
+    const esriTile = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 19,
+      attribution: 'Tiles &copy; Esri'
+    });
+
+    const baseMaps = {
+      '🗺️ OpenStreetMap Standard': osmTile,
+      '🎨 CartoDB Voyager': cartoTile,
+      '🛰️ Esri Satelit': esriTile,
+    };
+
+    osmTile.addTo(this.#map);
+    L.control.layers(baseMaps).addTo(this.#map);
 
     try {
       // 1. Fetch stories dari API
